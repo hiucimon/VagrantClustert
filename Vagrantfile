@@ -76,8 +76,6 @@ end
  
 Vagrant.configure("2") do |config|
                 config.vm.box = $box
-                config.vm.synced_folder "./", "/var/www", create: true, group: "www-data", owner: "www-data"
-                config.vm.provision "shell", path: "../setup_proxy.sh"
                 $nodename.each do |node|
                                 config.vm.provision "shell", inline: "echo >>/etc/hosts '#{$etc_hosts}'"
                                 config.vm.define node do |cluster|        
@@ -93,6 +91,6 @@ Vagrant.configure("2") do |config|
                                 end
                 end
                 config.vm.provision "ansible" do |ansible|
-                ansible.playbook = "playbook.yml"
+                  ansible.playbook = "playbook.yml"
                 end
 end
